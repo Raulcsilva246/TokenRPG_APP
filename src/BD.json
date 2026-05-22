@@ -1,0 +1,89 @@
+{
+  "id": "",
+  "createdAt": "",
+  "updatedAt": "",
+
+  "personagem": {
+    "nome": "",
+    "jogador": "",
+    "classe": "",
+    "raca": "",
+    "origem": "",
+    "nivel": 1,
+    "xp_atual": 0,
+    "xp_max": 0,
+    "descricaoFisica": "",
+    "background": ""
+  },
+
+  "status": {
+    "vida": {
+      "atual": 0,
+      "max": 0
+    },
+
+    "mana": {
+      "atual": 0,
+      "max": 0
+    },
+
+    "energia": {
+      "atual": 0,
+      "max": 0
+    },
+
+    "sanidade": {
+      "atual": 0,
+      "max": 0
+    },
+
+    "efeitos": []
+  },
+
+  "atributos": {
+    "forca": {
+      "valor": 0
+    },
+
+    "agilidade": {
+      "valor": 0
+    },
+
+    "vigor": {
+      "valor": 0
+    },
+
+    "intelecto": {
+      "valor": 0
+    },
+
+    "presenca": {
+      "valor": 0
+    }
+  },
+
+  "pericias": [],
+
+  "reacoes": {
+    "ca": 0,
+    "bloqueio": 0,
+    "esquiva": 0,
+    "deslocamento": 0
+  },
+
+  "inventario": {
+    "dinheiro": 0,
+
+    "armas": [],
+
+    "equipamentos": [],
+
+    "consumiveis": [],
+
+    "itens": []
+  },
+
+  "habilidades": [],
+
+  "anotacoes": ""
+}
