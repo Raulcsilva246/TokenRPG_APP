@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+//Style_Home
 export const styles = StyleSheet.create({
   box_select: {
     backgroundColor: '#1a1f2e',

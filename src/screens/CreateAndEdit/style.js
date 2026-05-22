@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+//Style_create&Edit
 export const styles = StyleSheet.create({
     container: {
     flex: 1,
@@ -15,12 +15,14 @@ export const styles = StyleSheet.create({
     borderColor: '#39FF14',
     borderRadius: 10,
   },
+  
   text: {
     fontSize: 15,
     fontWeight: 'bold',
     color: '#39FF14',
 
   },
+  
   header: {
     
     width: '100%',
@@ -34,6 +36,7 @@ export const styles = StyleSheet.create({
 
   paddingHorizontal: 20,
 },
+
 title: {
     marginTop: 10,
     paddingVertical: 8,
@@ -45,4 +48,34 @@ title: {
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 15,
   },
+  
+});
+
+export const input = StyleSheet.create({
+
+  container:{
+    alignItems: 'center',
+  },
+  containerBasicInfo:{
+    margin: 40,
+    borderWidth: 1,
+    padding: 20,
+    width: 350,
+    backgroundColor: '#1a1f2e',
+  },
+
+  textInput:{
+    marginTop: 20,
+    marginBottom: 10,
+    color: '#fff',
+    fontSize: 20,
+  },
+
+  input:{
+    height: 32,
+
+    padding: 10,
+    backgroundColor: 'gray',
+  }
+
 });
