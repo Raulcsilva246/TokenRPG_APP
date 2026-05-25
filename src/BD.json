@@ -22,11 +22,6 @@
       "max": 0
     },
 
-    "mana": {
-      "atual": 0,
-      "max": 0
-    },
-
     "energia": {
       "atual": 0,
       "max": 0
@@ -41,28 +36,16 @@
   },
 
   "atributos": {
-    "forca": {
-      "valor": 0
-    },
+    "forca": 0,
 
-    "agilidade": {
-      "valor": 0
-    },
+    "agilidade": 0,
 
-    "vigor": {
-      "valor": 0
-    },
+    "vigor": 0,
 
-    "intelecto": {
-      "valor": 0
-    },
+    "intelecto": 0,
 
-    "presenca": {
-      "valor": 0
-    }
+    "presenca": 0
   },
-
-  "pericias": [],
 
   "reacoes": {
     "ca": 0,

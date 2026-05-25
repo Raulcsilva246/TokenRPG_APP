@@ -8,7 +8,7 @@ import {
   ScrollView
 } from 'react-native';
 import {g_styles} from '../../global_CSS'
-import {styles, input} from './style'
+import {styles, input, status} from './style'
   
   
 
@@ -31,7 +31,7 @@ export default function Creat({ navigation }){
         <Text style={styles.title}>Criação de Personagem</Text>
 
         </View>
-
+ {/*------------------------------INFORMAÇÕES BASICAS ----------------------------*/}
     <View style={input.container}>
         <View style={input.containerBasicInfo}>
 
@@ -71,14 +71,167 @@ export default function Creat({ navigation }){
         </View>
 
 
-            
+             {/*---------------DESCRIÇÃO--------------------------------- */}
 
+         <View style={input.containerBasicInfo}>
+            <Text style={styles.title}>Descrição</Text>
 
-            <Text style={input.textInput}>Descrição Fisica</Text>
+            <Text style={input.textInput}>Descricção Fisica</Text>
 
             <TextInput 
             placeholder="Descrição Fisica"
             style={input.input} />
+
+            <Text style={input.textInput}>Background</Text>
+
+            <TextInput 
+            placeholder="Background"
+            style={input.input} />
+        </View>
+
+        {/*---------------------STATUS------------------------------------------ */}
+         <View style={input.containerBasicInfo}>
+
+            <Text style={styles.title}>Status</Text>
+
+            <View style={status.containerAlpha}>
+
+
+            <Text style={status.textInput}>Vida<br/>Max: </Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+
+        <View style={status.containerAlpha}>
+
+
+            <Text style={status.textInput}>Energ.<br/>Max: </Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+
+            <View style={status.containerAlpha}>
+
+            <Text style={status.textInput}>San.<br/>Max: </Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+        </View>
+
+         {/*--------------------ATRIBUTOS---------------------------------*/}
+
+         <View style={input.containerBasicInfo}>
+            <Text style={styles.title}>Atributos</Text>
+
+            <View style={status.containerAlpha}>
+
+
+            <Text style={status.textInput}>FOR:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            
+
+            <Text style={status.textInput}>AGL:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+
+            <View style={status.containerAlpha}>
+
+
+            <Text style={status.textInput}>VIG:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            
+
+            <Text style={status.textInput}>INT:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+
+                        <View style={status.containerAlpha}>
+
+
+            <Text style={status.textInput}>PRE:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            
+            </View>
+         </View>
+         
+            {/*--------------------Reações------------------------------------ */}
+        <View style={input.containerBasicInfo}>
+
+            <Text style={styles.title}>Reações</Text>
+
+            <View style={status.containerAlpha}>
+
+
+            <Text style={status.textInput}>CA Base:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+
+        <View style={status.containerAlpha}>
+
+
+            <Text style={status.textInput}>Bloqueio:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+
+            <View style={status.containerAlpha}>
+
+            <Text style={status.textInput}>Esquiva:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+
+                        <View style={status.containerAlpha}>
+
+            <Text style={status.textInput}>Deslocamento:</Text>
+
+            <TextInput 
+            placeholder=""
+            keyboardType="numeric"
+            style={status.input} />
+            </View>
+
+            
+        </View>
 
     </View>
 

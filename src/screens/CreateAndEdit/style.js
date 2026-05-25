@@ -57,7 +57,41 @@ export const input = StyleSheet.create({
     alignItems: 'center',
   },
   containerBasicInfo:{
-    margin: 40,
+    margin: 20,
+    borderWidth: 1,
+    padding: 20,
+    width: 350,
+    backgroundColor: '#1a1f2e',
+    
+  },
+
+  textInput:{
+    marginTop: 20,
+    marginBottom: 10,
+    color: '#fff',
+    fontSize: 20,
+  },
+
+  input:{
+    height: 32,
+    fontSize: 12,
+    padding: 8,
+    backgroundColor: 'gray',
+  }
+
+});
+
+export const status = StyleSheet.create({
+
+  containerAlpha:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    
+   
+  },
+  containerBasicInfo:{
+    margin: 20,
     borderWidth: 1,
     padding: 20,
     width: 350,
@@ -72,9 +106,12 @@ export const input = StyleSheet.create({
   },
 
   input:{
-    height: 32,
-
-    padding: 10,
+    height: 50,
+    width: 50,
+    fontSize: 20,
+    textAlign: 'center',
+    padding: 8,
+    margin: 20,
     backgroundColor: 'gray',
   }
 
