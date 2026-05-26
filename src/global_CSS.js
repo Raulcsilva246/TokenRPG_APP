@@ -21,4 +21,20 @@ export const g_styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 15,
   },
+  returnBottom: {
+    marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 100,
+    height: 35,
+    borderWidth: 2,
+    borderColor: '#39FF14',
+    borderRadius: 10,
+  },
+    text: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#39FF14',
+
+  },
 });

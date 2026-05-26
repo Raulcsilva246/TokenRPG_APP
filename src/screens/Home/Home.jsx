@@ -25,7 +25,9 @@ export default function Home({ navigation }){
             Tokens RPG
         </Text>
 
-        <TouchableOpacity style={styles.box_select}>
+        <TouchableOpacity 
+        style={styles.box_select}
+        onPress={() => navigation.navigate('Caracter')}>
 
             <View style={caracter.header}>
 
@@ -56,7 +58,7 @@ export default function Home({ navigation }){
 
     </ScrollView>
 
-    <TouchableOpacity style={b_Add.box_buttom} onPress={() => navigation.navigate('Character')}>
+    <TouchableOpacity style={b_Add.box_buttom} onPress={() => navigation.navigate('Creat')}>
         <Text style={b_Add.text}>+</Text>
     </TouchableOpacity>
 

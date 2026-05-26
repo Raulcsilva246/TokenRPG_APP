@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Home from '../screens/Home/Home'
-import Character from '../screens/CreateAndEdit/Create_C'
+import Creat from '../screens/CreateAndEdit/Create_C'
+import Caracter from '../screens/Caracter/Caracter'
 
 const Stack = createNativeStackNavigator()
 
@@ -19,8 +20,13 @@ export function AppRoutes(){
       />
 
       <Stack.Screen
-        name='Character'
-        component={Character}
+        name='Creat'
+        component={Creat}
+      />
+
+      <Stack.Screen
+        name='Caracter'
+        component={Caracter}
       />
 
     </Stack.Navigator>

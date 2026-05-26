@@ -5,23 +5,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
   },
-  returnBottom: {
-    marginTop: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 100,
-    height: 35,
-    borderWidth: 2,
-    borderColor: '#39FF14',
-    borderRadius: 10,
-  },
   
-  text: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#39FF14',
 
-  },
   
   header: {
     
@@ -48,6 +33,31 @@ title: {
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 15,
   },
+
+bottom: {
+  height: 50,
+  width: 200,
+  margin: 10,
+  marginBottom: 15,
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: '#ffaa00',
+  borderRadius: 6,
+  borderWidth: 4,
+  borderColor: '#ffbf40',
+
+  shadowColor: '#ffaa00',
+  shadowOffset:{
+  width: 0,
+  height: 0
+}},
+
+B_text: {
+    fontSize: 30,
+    fontWeight: 'bold',
+
+
+}
   
 });
 
@@ -57,7 +67,7 @@ export const input = StyleSheet.create({
     alignItems: 'center',
   },
   containerBasicInfo:{
-    margin: 20,
+    margin: 15,
     borderWidth: 1,
     padding: 20,
     width: 350,

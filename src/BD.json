@@ -1,4 +1,6 @@
 {
+  "fichas": [
+    {
   "id": "",
   "createdAt": "",
   "updatedAt": "",
@@ -10,8 +12,6 @@
     "raca": "",
     "origem": "",
     "nivel": 1,
-    "xp_atual": 0,
-    "xp_max": 0,
     "descricaoFisica": "",
     "background": ""
   },
@@ -30,9 +30,8 @@
     "sanidade": {
       "atual": 0,
       "max": 0
-    },
+    }
 
-    "efeitos": []
   },
 
   "atributos": {
@@ -46,6 +45,8 @@
 
     "presenca": 0
   },
+
+  "pericias": [],
 
   "reacoes": {
     "ca": 0,
@@ -66,7 +67,5 @@
     "itens": []
   },
 
-  "habilidades": [],
-
-  "anotacoes": ""
-}
+  "habilidades": []
+}]}

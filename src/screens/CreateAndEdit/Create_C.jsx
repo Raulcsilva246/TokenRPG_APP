@@ -22,10 +22,10 @@ export default function Creat({ navigation }){
         <View style={styles.header}>
 
         <TouchableOpacity
-        style={styles.returnBottom}
+        style={g_styles.returnBottom}
         onPress={() => navigation.navigate('Home')}
         >
-            <Text style={styles.text}>⇽Voltar</Text>
+            <Text style={g_styles.text}>⇽Voltar</Text>
         </TouchableOpacity>
 
         <Text style={styles.title}>Criação de Personagem</Text>
@@ -232,6 +232,12 @@ export default function Creat({ navigation }){
 
             
         </View>
+
+        <TouchableOpacity 
+        style={styles.bottom}
+        onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.B_text}>Salvar</Text>
+        </TouchableOpacity>
 
     </View>
 
