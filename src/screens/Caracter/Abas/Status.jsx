@@ -13,34 +13,66 @@ export default function Status(){
 
     <View style={status.container}>
         <View style={status.containerBasicInfo}>
-            <View style={}>
-                <Text>Vida</Text>
-                <View><Text>0</Text></View>
-                <Text>/</Text>
-                <View><Text>100</Text></View>
+            <View style={status.viewValue}>
+                <Text style={status.textStatus}>Vida:</Text>
+                <Text style={status.boxValue}>0</Text>
+                <Text style={status.textStatus}>/</Text>
+                <Text style={status.boxValue}>100</Text>
             </View>
             
-            <View>
-            <TouchableOpacity>
-                <Text>-</Text>
+            <View style={status.viewValue}>
+            <TouchableOpacity style={status.bottomValue}>
+                <Text style={status.textbottom}>-</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-                <Text>+</Text>
+            <TouchableOpacity style={status.bottomValue}>
+                <Text style={status.textbottom}>+</Text>
             </TouchableOpacity>
 
             </View>
         </View>
 
-        <View style={input.containerBasicInfo}>
+        <View style={status.containerBasicInfo}>
+            <View style={status.viewValue}>
+                <Text style={status.textStatus}>Energia:</Text>
+                <Text style={status.boxValue}>0</Text>
+                <Text style={status.textStatus}>/</Text>
+                <Text style={status.boxValue}>100</Text>
+            </View>
+            
+            <View style={status.viewValue}>
+            <TouchableOpacity style={status.bottomValue}>
+                <Text style={status.textbottom}>-</Text>
+            </TouchableOpacity>
 
+            <TouchableOpacity style={status.bottomValue}>
+                <Text style={status.textbottom}>+</Text>
+            </TouchableOpacity>
+
+            </View>
         
 
         </View>
 
 
-        <View style={input.containerBasicInfo}>
+        <View style={status.containerBasicInfo}>
+            <View style={status.viewValue}>
+                <Text style={status.textStatus}>Sanidade:</Text>
+                <Text style={status.boxValue}>0</Text>
+                <Text style={status.textStatus}>/</Text>
+                <Text style={status.boxValue}>100</Text>
+            </View>
+            
+            <View style={status.viewValue}>
+            <TouchableOpacity style={status.bottomValue}>
+                <Text style={status.textbottom}>-</Text>
+            </TouchableOpacity>
 
+            <TouchableOpacity style={status.bottomValue}>
+                <Text style={status.textbottom}>+</Text>
+            </TouchableOpacity>
+
+            </View>
         
 
         </View>
@@ -101,20 +133,38 @@ const status = StyleSheet.create({
     backgroundColor: '#1a1f2e',
     
   },
-
-  textInput:{
-    marginTop: 20,
-    marginRight: 10, 
-    marginBottom: 10,
-    color: '#fff',
-    fontSize: 20,
+  viewValue: {
+        flexDirection: 'row',
+        justifyContent: 'center',
   },
+  textStatus: {
+    color: 'grey',
+    fontSize: 28,
+    fontWeight: 'bold',
+    margin: 10,
+  },
+  boxValue: {
+    margin: 5,
+    borderWidth: 1,
 
-  input:{
-    height: 32,
-    fontSize: 12,
-    padding: 8,
-    backgroundColor: 'gray',
+
+    backgroundColor: '#afafaf',
+    padding: 10,
+    textAlign: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+  },
+  bottomValue: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+    backgroundColor: '#ffaa00',
+    height: 40,
+    width: 40,
+  },
+  textbottom: {
+    color: 'black',
+    fontSize: 30,
   }
 
 });

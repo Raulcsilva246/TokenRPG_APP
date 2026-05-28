@@ -18,7 +18,7 @@ export default function Personagem(){
 
             <View style={styles.containerInfo}>
                 <Text style={input.textInput}>Nome: </Text>
-                <Text style={input.textInput}>Rual Be God</Text>
+                <Text style={input.textInput}>Raul Be God</Text>
             </View>
 
             <View style={styles.containerInfo}>
