@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#1a1f2e',
     padding: 10,
     borderWidth: 1,
+    marginBottom: 20,
     borderTopColor: '#39FF14',
     borderColor: '#252833',
 
@@ -54,7 +55,7 @@ export const b_Add = StyleSheet.create({
      position: 'absolute',
 
     right: 25,
-    bottom: 65,
+    bottom: 140,
 
     width: 50,
     height: 50,

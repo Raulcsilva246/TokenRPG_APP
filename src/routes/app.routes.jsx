@@ -3,6 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Home from '../screens/Home/Home'
 import Creat from '../screens/CreateAndEdit/Create_C'
 import Caracter from '../screens/Caracter/Caracter'
+import CreatH from '../screens/CreateAndEdit/CreateHability'
+import CreatT from '../screens/CreateAndEdit/CreateItem'
+import Delete from '../screens/CreateAndEdit/Delete'
 
 const Stack = createNativeStackNavigator()
 
@@ -27,6 +30,21 @@ export function AppRoutes(){
       <Stack.Screen
         name='Caracter'
         component={Caracter}
+      />
+
+      <Stack.Screen
+        name='CreatH'
+        component={CreatH}
+      />
+
+      <Stack.Screen
+        name='CreatT'
+        component={CreatT}
+      />
+
+      <Stack.Screen
+        name='Delete'
+        component={Delete}
       />
 
     </Stack.Navigator>

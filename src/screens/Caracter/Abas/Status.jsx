@@ -1,170 +1,258 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { atualizarFicha } from "../../../services/Banco";
 
-  
-  
+export default function Status({ ficha, id }) {
 
-export default function Status(){
+  const [vida, setVida] = useState(
+    ficha?.status?.vida?.atual || 0
+  );
 
-  
+  const [energia, setEnergia] = useState(
+    ficha?.status?.energia?.atual || 0
+  );
 
-    return(
+  const [sanidade, setSanidade] = useState(
+    ficha?.status?.sanidade?.atual || 0
+  );
 
-     <>
+  async function alterarVida(valor) {
 
-    <View style={status.container}>
-        <View style={status.containerBasicInfo}>
-            <View style={status.viewValue}>
-                <Text style={status.textStatus}>Vida:</Text>
-                <Text style={status.boxValue}>0</Text>
-                <Text style={status.textStatus}>/</Text>
-                <Text style={status.boxValue}>100</Text>
-            </View>
-            
-            <View style={status.viewValue}>
-            <TouchableOpacity style={status.bottomValue}>
-                <Text style={status.textbottom}>-</Text>
-            </TouchableOpacity>
+    const novaVida = Math.min(
+      ficha.status.vida.max,
+      Math.max(0, vida + valor)
+    );
 
-            <TouchableOpacity style={status.bottomValue}>
-                <Text style={status.textbottom}>+</Text>
-            </TouchableOpacity>
+    setVida(novaVida);
 
-            </View>
+    const novoStatus = {
+      ...ficha.status,
+      vida: {
+        ...ficha.status.vida,
+        atual: novaVida
+      }
+    };
+
+    await atualizarFicha(id, {
+      status: novoStatus
+    });
+  }
+
+  async function alterarEnergia(valor) {
+
+    const novaEnergia = Math.min(
+      ficha.status.energia.max,
+      Math.max(0, energia + valor)
+    );
+
+    setEnergia(novaEnergia);
+
+    const novoStatus = {
+      ...ficha.status,
+      energia: {
+        ...ficha.status.energia,
+        atual: novaEnergia
+      }
+    };
+
+    await atualizarFicha(id, {
+      status: novoStatus
+    });
+  }
+
+  async function alterarSanidade(valor) {
+
+    const novaSanidade = Math.min(
+      ficha.status.sanidade.max,
+      Math.max(0, sanidade + valor)
+    );
+
+    setSanidade(novaSanidade);
+
+    const novoStatus = {
+      ...ficha.status,
+      sanidade: {
+        ...ficha.status.sanidade,
+        atual: novaSanidade
+      }
+    };
+
+    await atualizarFicha(id, {
+      status: novoStatus
+    });
+  }
+
+  return (
+    <View style={status.container}>
+
+      {/* VIDA */}
+      <View style={status.containerBasicInfo}>
+
+        <View style={status.viewValue}>
+          <Text style={[status.textStatus, { color: "red" }]}>
+            Vida:
+          </Text>
+
+          <Text style={status.boxValue}>
+            {vida}
+          </Text>
+
+          <Text style={status.textStatus}>
+            /
+          </Text>
+
+          <Text style={status.boxValue}>
+            {ficha.status.vida.max}
+          </Text>
         </View>
 
-        <View style={status.containerBasicInfo}>
-            <View style={status.viewValue}>
-                <Text style={status.textStatus}>Energia:</Text>
-                <Text style={status.boxValue}>0</Text>
-                <Text style={status.textStatus}>/</Text>
-                <Text style={status.boxValue}>100</Text>
-            </View>
-            
-            <View style={status.viewValue}>
-            <TouchableOpacity style={status.bottomValue}>
-                <Text style={status.textbottom}>-</Text>
-            </TouchableOpacity>
+        <View style={status.viewValue}>
+          <TouchableOpacity
+            style={status.bottomValue}
+            onPress={() => alterarVida(-1)}
+          >
+            <Text style={status.textbottom}>-</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity style={status.bottomValue}>
-                <Text style={status.textbottom}>+</Text>
-            </TouchableOpacity>
-
-            </View>
-        
-
+          <TouchableOpacity
+            style={status.bottomValue}
+            onPress={() => alterarVida(1)}
+          >
+            <Text style={status.textbottom}>+</Text>
+          </TouchableOpacity>
         </View>
 
+      </View>
 
-        <View style={status.containerBasicInfo}>
-            <View style={status.viewValue}>
-                <Text style={status.textStatus}>Sanidade:</Text>
-                <Text style={status.boxValue}>0</Text>
-                <Text style={status.textStatus}>/</Text>
-                <Text style={status.boxValue}>100</Text>
-            </View>
-            
-            <View style={status.viewValue}>
-            <TouchableOpacity style={status.bottomValue}>
-                <Text style={status.textbottom}>-</Text>
-            </TouchableOpacity>
+      {/* ENERGIA */}
+      <View style={status.containerBasicInfo}>
 
-            <TouchableOpacity style={status.bottomValue}>
-                <Text style={status.textbottom}>+</Text>
-            </TouchableOpacity>
+        <View style={status.viewValue}>
+          <Text style={[status.textStatus, { color: "yellow" }]}>
+            Energia:
+          </Text>
 
-            </View>
-        
+          <Text style={status.boxValue}>
+            {energia}
+          </Text>
 
+          <Text style={status.textStatus}>
+            /
+          </Text>
+
+          <Text style={status.boxValue}>
+            {ficha.status.energia.max}
+          </Text>
         </View>
+
+        <View style={status.viewValue}>
+          <TouchableOpacity
+            style={status.bottomValue}
+            onPress={() => alterarEnergia(-1)}
+          >
+            <Text style={status.textbottom}>-</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={status.bottomValue}
+            onPress={() => alterarEnergia(1)}
+          >
+            <Text style={status.textbottom}>+</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+
+      {/* SANIDADE */}
+      <View style={status.containerBasicInfo}>
+
+        <View style={status.viewValue}>
+          <Text style={[status.textStatus, { color: "cyan" }]}>
+            Sanidade:
+          </Text>
+
+          <Text style={status.boxValue}>
+            {sanidade}
+          </Text>
+
+          <Text style={status.textStatus}>
+            /
+          </Text>
+
+          <Text style={status.boxValue}>
+            {ficha.status.sanidade.max}
+          </Text>
+        </View>
+
+        <View style={status.viewValue}>
+          <TouchableOpacity
+            style={status.bottomValue}
+            onPress={() => alterarSanidade(-1)}
+          >
+            <Text style={status.textbottom}>-</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={status.bottomValue}
+            onPress={() => alterarSanidade(1)}
+          >
+            <Text style={status.textbottom}>+</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+
     </View>
-
-
-
-      </>
-    )
-
-  
+  );
 }
 
-  
-
-const styles = StyleSheet.create({
-
-    title: {
-    marginTop: 10,
-    paddingVertical: 8,
-    color: '#39FF14', // Texto em verde neon
-    textAlign: 'center',
-    fontSize: 30,
-    fontWeight: 'bold',
-    textShadowColor: '#39FF14',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 15,
-  },
-  containerInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: '#1a1f2e',
-    borderBottomColor: 'gray'
-  },
-    containerDesc: {
-    padding: 10,
-    flexDirection: 'row',
-    textAlign: 'center',
-    borderWidth: 1,
-    borderColor: 'gray',
-  },
-
-  },
-
-);
-
 const status = StyleSheet.create({
-
-  container:{
-    alignItems: 'center',
+  container: {
+    alignItems: "center",
   },
-  containerBasicInfo:{
+
+  containerBasicInfo: {
     margin: 15,
     borderWidth: 1,
     padding: 20,
     width: 350,
-    backgroundColor: '#1a1f2e',
-    
+    backgroundColor: "#1a1f2e",
   },
+
   viewValue: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
+
   textStatus: {
-    color: 'grey',
+    color: "grey",
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     margin: 10,
   },
+
   boxValue: {
     margin: 5,
     borderWidth: 1,
-
-
-    backgroundColor: '#afafaf',
+    backgroundColor: "#afafaf",
     padding: 10,
-    textAlign: 'center',
-    justifyContent: 'center',
+    minWidth: 60,
+    textAlign: "center",
     fontSize: 18,
   },
+
   bottomValue: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     margin: 10,
-    backgroundColor: '#ffaa00',
+    backgroundColor: "#ffaa00",
     height: 40,
     width: 40,
   },
-  textbottom: {
-    color: 'black',
-    fontSize: 30,
-  }
 
+  textbottom: {
+    color: "black",
+    fontSize: 30,
+  },
 });

@@ -1,68 +1,83 @@
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-  ScrollView
-} from 'react-native';
-import {styles, caracter, b_Add} from './style'
-import {g_styles} from '../../global_CSS'
-  
-  
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 
-export default function Home({ navigation }){
+import { useEffect, useState } from "react";
 
-  
+import { styles, caracter, b_Add } from "./style";
+import { g_styles } from "../../global_CSS";
 
-    return(
+import { listarFichas } from "../../services/Banco";
 
-<View style={g_styles.container}>
+export default function Home({ navigation }) {
+  const [fichas, setFichas] = useState([]);
 
-    <ScrollView>
+  async function carregarFichas() {
+    const resultado = await listarFichas();
 
-        <Text style={g_styles.title}>
-            Tokens RPG
-        </Text>
+    setFichas(resultado);
+  }
 
-        <TouchableOpacity 
-        style={styles.box_select}
-        onPress={() => navigation.navigate('Caracter')}>
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", carregarFichas);
 
+    return unsubscribe;
+  }, [navigation]);
+
+  return (
+    <View style={g_styles.container}>
+      <ScrollView>
+        <Text style={g_styles.title}>Tokens RPG</Text>
+
+        {fichas.map((ficha) => (
+          <TouchableOpacity
+            key={ficha.id}
+            style={styles.box_select}
+            onPress={() =>
+              navigation.navigate("Caracter", {
+                id: ficha.id,
+              })
+            }
+          >
             <View style={caracter.header}>
+              <Text style={caracter.textname} numberOfLines={1}>
+                {ficha.personagem.nome}
+              </Text>
 
-                <Text
-                  style={caracter.textname}
-                  numberOfLines={1}
-                >
-                  Name
-                </Text>
-
-                <View style={caracter.box_lv}>
-                    <Text style={caracter.textLV}>
-                      LV ?
-                    </Text>
-                </View>
-
+              <View style={caracter.box_lv}>
+                <Text style={caracter.textLV}>LV {ficha.personagem.nivel}</Text>
+              </View>
             </View>
 
             <Text style={caracter.text}>
-              Player:
+              Player: {ficha.personagem.jogador}
             </Text>
 
-            <Text style={caracter.text}>
-              class:
-            </Text>
+            <Text style={caracter.text}>Classe: {ficha.personagem.classe}</Text>
 
-        </TouchableOpacity>
+            <Text style={caracter.text}>ID: {ficha.id}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
 
-    </ScrollView>
-
-    <TouchableOpacity style={b_Add.box_buttom} onPress={() => navigation.navigate('Creat')}>
+      <TouchableOpacity
+        style={b_Add.box_buttom}
+        onPress={() => navigation.navigate("Creat")}
+      >
         <Text style={b_Add.text}>+</Text>
-    </TouchableOpacity>
+      </TouchableOpacity>
 
-</View>
-
-)
+      <TouchableOpacity
+        style={[
+          b_Add.box_buttom,
+          {
+            backgroundColor: "red",
+            right: 25,
+            bottom: 65,
+          },
+        ]}
+        onPress={() => navigation.navigate("Delete")}
+      >
+        <Text style={b_Add.text}>-</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }

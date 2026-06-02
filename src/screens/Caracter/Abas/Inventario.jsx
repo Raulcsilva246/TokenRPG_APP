@@ -143,7 +143,7 @@ export default function Inventario({ navigation }) {
 
         </View>
 
-<TouchableOpacity style={b_Add.box_buttom_add}>
+<TouchableOpacity style={b_Add.box_buttom_add} onPress={() => navigation.navigate('CreatT')}>
         <Text style={b_Add.text}>+</Text>
     </TouchableOpacity>
 
