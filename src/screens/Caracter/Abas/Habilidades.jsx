@@ -13,7 +13,7 @@ import {
 
 export default function Habilidades({ navigation }){
 
-  
+
 
     return(
 

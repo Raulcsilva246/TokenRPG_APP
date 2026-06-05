@@ -35,7 +35,7 @@ export default function Caracter({ navigation, route }) {
       case "atributos":
         return (
           <View>
-            <Atributos ficha={ficha} />
+            <Atributos ficha={ficha} id={ficha.id} navigation={navigation} />
           </View>
         );
 
@@ -58,24 +58,38 @@ export default function Caracter({ navigation, route }) {
     }
   }
   useEffect(() => {
-    async function carregarFicha() {
-      const { id } = route.params;
+  async function carregarFicha() {
+    const id = route?.params?.id;
 
-      const resultado = await buscarFicha(id);
-
-      setFicha(resultado);
+    if (!id) {
+      console.log("ID não recebido");
+      return;
     }
 
-    carregarFicha();
-  }, []);
+    const resultado = await buscarFicha(id);
+    setFicha(resultado);
+  }
+
+  carregarFicha();
+}, []);
 
   if (!ficha) {
-    return (
-      <View style={g_styles.container}>
-        <Text style={{ color: "#FFF" }}>Carregando...</Text>
-      </View>
-    );
-  }
+  return (
+    <View style={g_styles.container}>
+      <Text style={{ color: "#FFF" }}>Carregando...</Text>
+    </View>
+  );
+}
+
+if (!route?.params?.id) {
+  return (
+    <View style={g_styles.container}>
+      <Text style={{ color: "#FFF" }}>
+        ID não informado
+      </Text>
+    </View>
+  );
+}
   return (
     <>
       <View style={styles.header}>

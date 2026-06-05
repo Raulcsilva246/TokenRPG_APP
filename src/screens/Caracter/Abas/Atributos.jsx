@@ -1,6 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {removerUltimaPericia} from '../../../services/Banco'
 
-export default function Atributos({ ficha }) {
+export default function Atributos({ ficha, navigation }) {
+  const id = ficha.id;
+  async function remover(){
+    await removerUltimaPericia(id);
+    console.log("Pericias removida")
+  }
   return (
     <View style={styles.container}>
       <View style={styles.containerBasicInfo}>
@@ -57,7 +63,24 @@ export default function Atributos({ ficha }) {
       </View>
 
       <View style={styles.containerBasicInfo}>
-        <Text style={atributos.textStatus}>Perícias: Em breve</Text>
+        <Text style={styles.title}>Perícias</Text>
+        
+      <View style={styles.containerInfo}>
+        <TouchableOpacity style={b_Add.box_buttom_Delete} onPress={remover}><Text style={b_Add.text}>-</Text></TouchableOpacity>
+
+
+
+        <TouchableOpacity style={b_Add.box_buttom_add} onPress={() => navigation.navigate('CreatP', {
+  id: ficha.id
+})}><Text style={b_Add.text}>+</Text></TouchableOpacity>
+
+      </View>
+      <View containerInfo>
+
+
+
+      </View>
+
       </View>
     </View>
   );
@@ -127,5 +150,69 @@ const atributos = StyleSheet.create({
   viewValue: {
     flexDirection: "row",
     justifyContent: "center",
+  },
+});
+
+export const b_Add = StyleSheet.create({
+
+  box_buttom_add: {
+
+      margin: 10,
+
+    width: 50,
+    height: 50,
+
+    backgroundColor: '#39FF14',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    shadowColor: '#39FF14',
+shadowOffset:{
+    width: 0,
+    height: 0
+  },
+
+  
+
+  shadowOpacity: 1,
+  shadowRadius: 25,
+
+  elevation: 20,
+  },
+
+    box_buttom_Delete: {
+
+        margin: 10,
+
+
+
+    width: 50,
+    height: 50,
+
+    backgroundColor: '#ff1414',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    shadowColor: '#ff1414',
+shadowOffset:{
+    width: 0,
+    height: 0
+  },
+
+  
+
+  shadowOpacity: 1,
+  shadowRadius: 25,
+
+  elevation: 20,
+  },
+
+  text: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'black'
+
   },
 });

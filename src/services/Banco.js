@@ -309,3 +309,69 @@ export async function atualizarFicha(
   return true;
 
 }
+
+/* ==================================================
+   FUNÇÃO: ADICIONAR PERÍCIA
+================================================== */
+
+export async function adicionarPericia(
+  idFicha,
+  nome,
+  valor
+) {
+  const banco = await lerBanco();
+
+  const ficha = banco.fichas.find(
+    ficha => ficha.id === idFicha
+  );
+
+  if (!ficha) {
+    return false;
+  }
+
+  ficha.pericias.push({
+    nome,
+    valor: Number(valor || 0)
+  });
+
+  ficha.updatedAt =
+    new Date().toISOString();
+
+  await salvarBanco(banco);
+
+  return true;
+}
+
+
+/* ==================================================
+   FUNÇÃO: REMOVER ÚLTIMA PERÍCIA
+================================================== */
+
+export async function removerUltimaPericia(
+  idFicha
+) {
+  const banco = await lerBanco();
+
+  const ficha = banco.fichas.find(
+    ficha => ficha.id === idFicha
+  );
+
+  if (!ficha) {
+    return false;
+  }
+
+  if (ficha.pericias.length === 0) {
+    return false;
+  }
+
+  ficha.pericias.pop();
+
+  ficha.updatedAt =
+    new Date().toISOString();
+
+  await salvarBanco(banco);
+
+  
+
+  return true;
+}

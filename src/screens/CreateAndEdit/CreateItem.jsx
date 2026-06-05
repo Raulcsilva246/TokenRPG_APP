@@ -24,7 +24,7 @@ export default function CreatT({ navigation }) {
 
           <TouchableOpacity
             style={g_styles.returnBottom}
-            onPress={() => navigation.navigate('Caracter')}
+            onPress={() => navigation.goBack()}
           >
             <Text style={g_styles.text}>⇽Voltar</Text>
           </TouchableOpacity>
@@ -130,7 +130,7 @@ export default function CreatT({ navigation }) {
 
           <TouchableOpacity
             style={styles.bottom}
-            onPress={() => navigation.navigate('Caracter')}
+            onPress={() => navigation.goBack()}
           >
             <Text style={styles.B_text}>
               Salvar
