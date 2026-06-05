@@ -28,14 +28,14 @@ export default function Caracter({ navigation, route }) {
       case "status":
         return (
           <View>
-            <Status ficha={ficha} id={ficha.id} />
+            <Status ficha={ficha} id={ficha.id} setFicha={setFicha} />
           </View>
         );
 
       case "atributos":
         return (
           <View>
-            <Atributos ficha={ficha}/>
+            <Atributos ficha={ficha} />
           </View>
         );
 
@@ -89,9 +89,11 @@ export default function Caracter({ navigation, route }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.editBottom}
-            onPress={() => navigation.navigate('Edit', {
-  id: ficha.id
-})}
+            onPress={() =>
+              navigation.navigate("Edit", {
+                id: ficha.id,
+              })
+            }
           >
             <Text style={g_styles.text}>Editar</Text>
           </TouchableOpacity>
