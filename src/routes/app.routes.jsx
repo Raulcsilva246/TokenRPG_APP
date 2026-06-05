@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Home from '../screens/Home/Home'
 import Creat from '../screens/CreateAndEdit/Create_C'
+import Edit from '../screens/CreateAndEdit/Edit_C'
 import Caracter from '../screens/Caracter/Caracter'
 import CreatH from '../screens/CreateAndEdit/CreateHability'
 import CreatT from '../screens/CreateAndEdit/CreateItem'
@@ -25,6 +26,11 @@ export function AppRoutes(){
       <Stack.Screen
         name='Creat'
         component={Creat}
+      />
+
+      <Stack.Screen
+        name='Edit'
+        component={Edit}
       />
 
       <Stack.Screen

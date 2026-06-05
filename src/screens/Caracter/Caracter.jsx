@@ -89,7 +89,9 @@ export default function Caracter({ navigation, route }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.editBottom}
-            onPress={() => navigation.navigate("Creat")}
+            onPress={() => navigation.navigate('Edit', {
+  id: ficha.id
+})}
           >
             <Text style={g_styles.text}>Editar</Text>
           </TouchableOpacity>

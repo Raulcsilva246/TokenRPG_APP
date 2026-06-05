@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
   },
   editBottom:{
     marginTop: 10,
-    marginLeft: 175,
+    marginLeft: 150,
     alignItems: 'center',
     justifyContent: 'center',
     width: 100,
