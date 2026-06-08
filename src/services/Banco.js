@@ -268,20 +268,12 @@ export async function excluirFicha(id) {
    Atualiza uma ficha existente
 ================================================== */
 
-export async function atualizarFicha(
-  id,
-  novosDados
-) {
-
+export async function atualizarFicha(id, novosDados) {
   // Carrega o banco
-  const banco =
-    await lerBanco();
+  const banco = await lerBanco();
 
   // Procura a posição da ficha no array
-  const index =
-    banco.fichas.findIndex(
-      ficha => ficha.id === id
-    );
+  const index = banco.fichas.findIndex((ficha) => ficha.id === id);
 
   // Caso não encontre a ficha
   if (index === -1) {
@@ -290,7 +282,6 @@ export async function atualizarFicha(
 
   // Atualiza os dados mantendo os anteriores
   banco.fichas[index] = {
-
     // Mantém os dados atuais
     ...banco.fichas[index],
 
@@ -298,63 +289,55 @@ export async function atualizarFicha(
     ...novosDados,
 
     // Atualiza a data de modificação
-    updatedAt:
-      new Date().toISOString()
-
+    updatedAt: new Date().toISOString(),
   };
 
   // Salva o banco atualizado
   await salvarBanco(banco);
 
   return true;
-
 }
 
 /* ==================================================
    FUNÇÃO: ADICIONAR PERÍCIA
 ================================================== */
 
-export async function adicionarPericia(
-  idFicha,
-  nome,
-  valor
-) {
+export async function adicionarPericia(id, nome, valor) {
+  console.log("ID:", id, typeof id);
+
+  console.log("NOME:", nome);
+
+  console.log("VALOR:", valor);
+
   const banco = await lerBanco();
 
-  const ficha = banco.fichas.find(
-    ficha => ficha.id === idFicha
-  );
+  const ficha = banco.fichas.find((ficha) => ficha.id == id);
 
   if (!ficha) {
+    console.log(false);
     return false;
   }
 
   ficha.pericias.push({
     nome,
-    valor: Number(valor || 0)
+    valor: Number(valor || 0),
   });
 
-  ficha.updatedAt =
-    new Date().toISOString();
+  ficha.updatedAt = new Date().toISOString();
 
   await salvarBanco(banco);
-
+  console.log(true);
   return true;
 }
-
 
 /* ==================================================
    FUNÇÃO: REMOVER ÚLTIMA PERÍCIA
 ================================================== */
 
-export async function removerUltimaPericia(
-  idFicha
-) {
+export async function removerUltimaPericia(idFicha) {
   const banco = await lerBanco();
 
-  const ficha = banco.fichas.find(
-    ficha => ficha.id === idFicha
-  );
+  const ficha = banco.fichas.find((ficha) => ficha.id == idFicha);
 
   if (!ficha) {
     return false;
@@ -366,12 +349,113 @@ export async function removerUltimaPericia(
 
   ficha.pericias.pop();
 
-  ficha.updatedAt =
-    new Date().toISOString();
+  ficha.updatedAt = new Date().toISOString();
 
   await salvarBanco(banco);
 
-  
+  return true;
+}
+
+
+/*===========================================================
+                  INVENTARIO
+=============================================================*/
+
+export async function adicionarItem(
+  idFicha,
+  dados
+) {
+  const banco = await lerBanco();
+
+  const ficha = banco.fichas.find(
+    ficha => ficha.id == idFicha
+  );
+
+  if (!ficha) {
+    return false;
+  }
+
+  const item = {
+    id: Date.now(),
+
+    nome: dados.nome,
+
+    tipo: dados.tipo,
+
+    dano: dados.dano || "",
+
+    quantidade:
+      Number(dados.quantidade || 0),
+
+    descricao:
+      dados.descricao || ""
+  };
+
+  switch (dados.tipo) {
+
+    case "Armamento":
+      ficha.inventario.armas.push(item);
+      break;
+
+    case "Equipamento":
+      ficha.inventario.equipamentos.push(item);
+      break;
+
+    case "Consumivel":
+      ficha.inventario.consumiveis.push(item);
+      break;
+
+    case "Item":
+      ficha.inventario.itens.push(item);
+      break;
+
+    case "Dinheiro":
+      ficha.inventario.dinheiro +=
+        Number(dados.quantidade || 0);
+      break;
+  }
+
+  await salvarBanco(banco);
+
+  return true;
+}
+
+//REMOVER
+
+export async function removerUltimoItem(
+  idFicha,
+  tipo
+) {
+  const banco = await lerBanco();
+
+  const ficha = banco.fichas.find(
+    ficha => ficha.id == idFicha
+  );
+
+  if (!ficha) {
+    return false;
+  }
+
+  switch (tipo) {
+
+    case "Armamento":
+      ficha.inventario.armas.pop();
+      break;
+
+    case "Equipamento":
+      ficha.inventario.equipamentos.pop();
+      break;
+
+    case "Consumivel":
+      ficha.inventario.consumiveis.pop();
+      break;
+
+    case "Item":
+      ficha.inventario.itens.pop();
+      break;
+  }
+
+  await salvarBanco(banco);
 
   return true;
 }

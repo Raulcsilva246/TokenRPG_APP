@@ -2,6 +2,9 @@ import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import { buscarFicha } from "../../services/Banco";
 
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
+
 import Personagem from "./Abas/Personagem";
 import Status from "./Abas/Status";
 import Atributos from "./Abas/Atributos";
@@ -35,7 +38,11 @@ export default function Caracter({ navigation, route }) {
       case "atributos":
         return (
           <View>
-            <Atributos ficha={ficha} id={ficha.id} navigation={navigation} />
+            <Atributos
+              ficha={ficha}
+              navigation={navigation}
+              setFicha={setFicha}
+            />
           </View>
         );
 
@@ -57,39 +64,37 @@ export default function Caracter({ navigation, route }) {
         return null;
     }
   }
-  useEffect(() => {
-  async function carregarFicha() {
-    const id = route?.params?.id;
+  useFocusEffect(
+    useCallback(() => {
+      async function carregarFicha() {
+        const { id } = route.params;
 
-    if (!id) {
-      console.log("ID não recebido");
-      return;
-    }
+        const resultado = await buscarFicha(id);
 
-    const resultado = await buscarFicha(id);
-    setFicha(resultado);
-  }
+        console.log("FICHA RECARREGADA:", resultado.pericias);
 
-  carregarFicha();
-}, []);
+        setFicha(resultado);
+      }
+
+      carregarFicha();
+    }, []),
+  );
 
   if (!ficha) {
-  return (
-    <View style={g_styles.container}>
-      <Text style={{ color: "#FFF" }}>Carregando...</Text>
-    </View>
-  );
-}
+    return (
+      <View style={g_styles.container}>
+        <Text style={{ color: "#FFF" }}>Carregando...</Text>
+      </View>
+    );
+  }
 
-if (!route?.params?.id) {
-  return (
-    <View style={g_styles.container}>
-      <Text style={{ color: "#FFF" }}>
-        ID não informado
-      </Text>
-    </View>
-  );
-}
+  if (!route?.params?.id) {
+    return (
+      <View style={g_styles.container}>
+        <Text style={{ color: "#FFF" }}>ID não informado</Text>
+      </View>
+    );
+  }
   return (
     <>
       <View style={styles.header}>

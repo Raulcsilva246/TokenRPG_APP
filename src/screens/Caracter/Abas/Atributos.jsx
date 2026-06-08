@@ -1,11 +1,16 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import {removerUltimaPericia} from '../../../services/Banco'
+import { removerUltimaPericia, buscarFicha } from "../../../services/Banco";
 
-export default function Atributos({ ficha, navigation }) {
+export default function Atributos({ ficha, navigation, setFicha }) {
+  console.log("PERICIAS DA TELA:", ficha.pericias);
+
   const id = ficha.id;
-  async function remover(){
-    await removerUltimaPericia(id);
-    console.log("Pericias removida")
+  async function remover() {
+    await removerUltimaPericia(ficha.id);
+
+    const fichaAtualizada = await buscarFicha(ficha.id);
+
+    setFicha(fichaAtualizada);
   }
   return (
     <View style={styles.container}>
@@ -64,23 +69,70 @@ export default function Atributos({ ficha, navigation }) {
 
       <View style={styles.containerBasicInfo}>
         <Text style={styles.title}>Perícias</Text>
-        
-      <View style={styles.containerInfo}>
-        <TouchableOpacity style={b_Add.box_buttom_Delete} onPress={remover}><Text style={b_Add.text}>-</Text></TouchableOpacity>
 
+        <View style={{ width: "100%" }}>
+          {ficha.pericias.length === 0 ? (
+            <Text
+              style={{
+                color: "#888",
+                textAlign: "center",
+                marginTop: 10,
+              }}
+            >
+              Nenhuma perícia cadastrada
+            </Text>
+          ) : (
+            ficha.pericias.map((pericia, index) => (
+              <View
+                key={index}
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  borderBottomWidth: 1,
+                  borderBottomColor: "#444",
+                  paddingVertical: 8,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#FFF",
+                    fontSize: 18,
+                  }}
+                >
+                  {pericia.nome}
+                </Text>
 
+                <Text
+                  style={{
+                    color: "#39FF14",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                >
+                  +{pericia.valor}
+                </Text>
+              </View>
+            ))
+          )}
+        </View>
 
-        <TouchableOpacity style={b_Add.box_buttom_add} onPress={() => navigation.navigate('CreatP', {
-  id: ficha.id
-})}><Text style={b_Add.text}>+</Text></TouchableOpacity>
+        <View style={styles.containerInfo}>
+          <TouchableOpacity style={b_Add.box_buttom_Delete} onPress={remover}>
+            <Text style={b_Add.text}>-</Text>
+          </TouchableOpacity>
 
-      </View>
-      <View containerInfo>
-
-
-
-      </View>
-
+          <TouchableOpacity
+            style={b_Add.box_buttom_add}
+            onPress={() =>
+              navigation.navigate("CreatP", {
+                id: ficha.id,
+              })
+            }
+          >
+            <Text style={b_Add.text}>+</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -154,65 +206,55 @@ const atributos = StyleSheet.create({
 });
 
 export const b_Add = StyleSheet.create({
-
   box_buttom_add: {
-
-      margin: 10,
-
-    width: 50,
-    height: 50,
-
-    backgroundColor: '#39FF14',
-
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    shadowColor: '#39FF14',
-shadowOffset:{
-    width: 0,
-    height: 0
-  },
-
-  
-
-  shadowOpacity: 1,
-  shadowRadius: 25,
-
-  elevation: 20,
-  },
-
-    box_buttom_Delete: {
-
-        margin: 10,
-
-
+    margin: 10,
 
     width: 50,
     height: 50,
 
-    backgroundColor: '#ff1414',
+    backgroundColor: "#39FF14",
 
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
 
-    shadowColor: '#ff1414',
-shadowOffset:{
-    width: 0,
-    height: 0
+    shadowColor: "#39FF14",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+
+    shadowOpacity: 1,
+    shadowRadius: 25,
+
+    elevation: 20,
   },
 
-  
+  box_buttom_Delete: {
+    margin: 10,
 
-  shadowOpacity: 1,
-  shadowRadius: 25,
+    width: 50,
+    height: 50,
 
-  elevation: 20,
+    backgroundColor: "#ff1414",
+
+    justifyContent: "center",
+    alignItems: "center",
+
+    shadowColor: "#ff1414",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+
+    shadowOpacity: 1,
+    shadowRadius: 25,
+
+    elevation: 20,
   },
 
   text: {
     fontSize: 30,
-    fontWeight: 'bold',
-    color: 'black'
-
+    fontWeight: "bold",
+    color: "black",
   },
 });

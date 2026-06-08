@@ -72,6 +72,7 @@ export default function Home({ navigation }) {
             backgroundColor: "red",
             right: 25,
             bottom: 65,
+            shadowColor: '#ff4a4a',
           },
         ]}
         onPress={() => navigation.navigate("Delete")}

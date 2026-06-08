@@ -8,6 +8,7 @@ import CreatH from '../screens/CreateAndEdit/CreateHability'
 import CreatT from '../screens/CreateAndEdit/CreateItem'
 import CreatP from '../screens/CreateAndEdit/CreatePericias.jsx'
 import Delete from '../screens/CreateAndEdit/Delete'
+import DeleteItem from '../screens/CreateAndEdit/DeleteItem'
 
 
 const Stack = createNativeStackNavigator()
@@ -53,6 +54,11 @@ export function AppRoutes(){
       <Stack.Screen
         name='Delete'
         component={Delete}
+      />
+
+      <Stack.Screen
+        name='DeleteItem'
+        component={DeleteItem}
       />
 
       <Stack.Screen

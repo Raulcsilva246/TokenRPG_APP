@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-export default function Inventario({ navigation }) {
+export default function Inventario({ ficha, navigation }) {
 
   return(
     <>
@@ -143,11 +143,22 @@ export default function Inventario({ navigation }) {
 
         </View>
 
-<TouchableOpacity style={b_Add.box_buttom_add} onPress={() => navigation.navigate('CreatT')}>
+<TouchableOpacity style={b_Add.box_buttom_add} onPress={() =>navigation.navigate("CreatT", {
+  id: ficha.id
+})}>
         <Text style={b_Add.text}>+</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity style={b_Add.box_buttom_Delete}>
+    <TouchableOpacity style={[
+          b_Add.box_buttom_add,
+          {
+            backgroundColor: "red",
+            bottom: 10,
+            shadowColor: '#ff4a4a',
+            width: 50,
+            height: 50,
+          },
+        ]}onPress={() => navigation.navigate('DeleteItem')}>
         <Text style={b_Add.text}>-</Text>
     </TouchableOpacity>
       </View>
@@ -225,8 +236,8 @@ export const b_Add = StyleSheet.create({
   box_buttom_add: {
      position: 'absolute',
 
-    right: 25,
-    bottom: 0,
+    right: 0,
+    bottom: 80,
 
     width: 50,
     height: 50,
@@ -250,33 +261,7 @@ shadowOffset:{
   elevation: 20,
   },
 
-    box_buttom_Delete: {
-     position: 'absolute',
-
-    right: 25,
-    bottom: -65,
-
-    width: 50,
-    height: 50,
-
-    backgroundColor: '#ff1414',
-
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    shadowColor: '#ff1414',
-shadowOffset:{
-    width: 0,
-    height: 0
-  },
-
-  
-
-  shadowOpacity: 1,
-  shadowRadius: 25,
-
-  elevation: 20,
-  },
+   
 
   text: {
     fontSize: 30,
