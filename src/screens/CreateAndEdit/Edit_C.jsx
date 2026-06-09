@@ -127,7 +127,7 @@ import { criarFicha, atualizarFicha, buscarFicha } from '../../services/Banco';
 
     console.log("SALVO!");
 
-    navigation.navigate('Home');
+    navigation.goBack();
 
   } catch (erro) {
 
@@ -145,7 +145,7 @@ import { criarFicha, atualizarFicha, buscarFicha } from '../../services/Banco';
 
         <TouchableOpacity
           style={g_styles.returnBottom}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => navigation.goBack()}
         >
           <Text style={g_styles.text}>⇽Voltar</Text>
         </TouchableOpacity>

@@ -56,7 +56,7 @@
   },
 
   "inventario": {
-    "dinheiro": 0,
+    "dinheiro": [],
 
     "armas": [],
 

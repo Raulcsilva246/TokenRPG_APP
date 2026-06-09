@@ -184,7 +184,7 @@ export async function criarFicha(dados) {
       // =====================================
       inventario: {
         // Quantidade de dinheiro
-        dinheiro: 0,
+        dinheiro: [],
 
         // Lista de armas
         armas: [],
@@ -356,43 +356,49 @@ export async function removerUltimaPericia(idFicha) {
   return true;
 }
 
-
 /*===========================================================
                   INVENTARIO
 =============================================================*/
 
-export async function adicionarItem(
-  idFicha,
-  dados
-) {
+export async function adicionarItem(idFicha, dados) {
   const banco = await lerBanco();
 
-  const ficha = banco.fichas.find(
-    ficha => ficha.id == idFicha
-  );
+  const ficha = banco.fichas.find((ficha) => ficha.id == idFicha);
 
   if (!ficha) {
     return false;
   }
 
+  // Busca todos os itens do inventário
+  const todosItens = [
+  ...ficha.inventario.dinheiro,
+  ...ficha.inventario.armas,
+  ...ficha.inventario.equipamentos,
+  ...ficha.inventario.consumiveis,
+  ...ficha.inventario.itens,
+];
+
+  // Gera o próximo ID disponível
+  const novoId =
+    todosItens.length > 0
+      ? Math.max(...todosItens.map((item) => item.id || 0)) + 1
+      : 1;
+
   const item = {
-    id: Date.now(),
+    id: novoId,
 
-    nome: dados.nome,
+    nome: dados.nome || "",
 
-    tipo: dados.tipo,
+    tipo: dados.tipo || "Item",
 
     dano: dados.dano || "",
 
-    quantidade:
-      Number(dados.quantidade || 0),
+    quantidade: Number(dados.quantidade || 0),
 
-    descricao:
-      dados.descricao || ""
+    descricao: dados.descricao || "",
   };
 
   switch (dados.tipo) {
-
     case "Armamento":
       ficha.inventario.armas.push(item);
       break;
@@ -410,50 +416,76 @@ export async function adicionarItem(
       break;
 
     case "Dinheiro":
-      ficha.inventario.dinheiro +=
-        Number(dados.quantidade || 0);
+      ficha.inventario.dinheiro.push({
+        id: novoId,
+        nome: dados.nome || "Dinheiro",
+        tipo: "Dinheiro",
+        quantidade: Number(dados.quantidade || 0),
+        descricao: dados.descricao || "",
+      });
+
       break;
   }
+
+  ficha.updatedAt = new Date().toISOString();
 
   await salvarBanco(banco);
 
   return true;
 }
-
 //REMOVER
 
-export async function removerUltimoItem(
-  idFicha,
-  tipo
-) {
+export async function removerItem(idFicha, tipo, idItem) {
+  console.log("ID FICHA:", idFicha);
+  console.log("TIPO:", tipo);
+  console.log("ID ITEM:", idItem);
+
   const banco = await lerBanco();
 
-  const ficha = banco.fichas.find(
-    ficha => ficha.id == idFicha
-  );
+  const ficha = banco.fichas.find((ficha) => ficha.id == idFicha);
+
+  console.log("FICHA:", ficha);
 
   if (!ficha) {
+    console.log("FICHA NÃO ENCONTRADA");
     return false;
   }
 
   switch (tipo) {
-
     case "Armamento":
-      ficha.inventario.armas.pop();
+      ficha.inventario.armas = ficha.inventario.armas.filter(
+        (item) => item.id != idItem,
+      );
       break;
 
     case "Equipamento":
-      ficha.inventario.equipamentos.pop();
+      ficha.inventario.equipamentos = ficha.inventario.equipamentos.filter(
+        (item) => item.id != idItem,
+      );
       break;
 
     case "Consumivel":
-      ficha.inventario.consumiveis.pop();
+      ficha.inventario.consumiveis = ficha.inventario.consumiveis.filter(
+        (item) => item.id != idItem,
+      );
       break;
 
     case "Item":
-      ficha.inventario.itens.pop();
+      ficha.inventario.itens = ficha.inventario.itens.filter(
+        (item) => item.id != idItem,
+      );
+
+    case "Dinheiro":
+      ficha.inventario.dinheiro = ficha.inventario.dinheiro.filter(
+        (item) => item.id != idItem,
+      );
       break;
+
+    default:
+      return false;
   }
+
+  ficha.updatedAt = new Date().toISOString();
 
   await salvarBanco(banco);
 

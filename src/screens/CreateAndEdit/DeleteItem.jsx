@@ -2,34 +2,33 @@ import { Text, View, TextInput, TouchableOpacity } from "react-native";
 
 import { StyleSheet } from "react-native";
 
+import { Picker } from "@react-native-picker/picker";
+
 import { useState } from "react";
 
-import { excluirFicha } from "../../services/Banco";
+import { excluirFicha, removerItem } from "../../services/Banco";
 
 import { g_styles } from "../../global_CSS";
 
-export default function DeleteItem({ navigation }) {
+export default function DeleteItem({ navigation, route }) {
+  const [tipo, setTipo] = useState("Item");
+
+  const { idFicha } = route.params;
+
   const [id, setId] = useState("");
 
   async function excluirItem() {
-
-    await removerUltimoItem(
-      ficha.id,
-      tipoSelecionado
-    );
-
+    await removerItem(idFicha, tipo, id);
+    console.log("Removido o item", id);
     navigation.goBack();
   }
-  
 
-   
-  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           style={g_styles.returnBottom}
-          onPress={() => navigation.navigate("Caracter")}
+          onPress={() => navigation.goBack()}
         >
           <Text style={g_styles.text}>⇽ Voltar</Text>
         </TouchableOpacity>
@@ -48,8 +47,22 @@ export default function DeleteItem({ navigation }) {
           onChangeText={setId}
         />
 
-        <TouchableOpacity style={styles.button} onPress={deletarItem}>
-          <Text style={styles.buttonText} onPress={()=> navigation.goBack()}>Excluir</Text>
+        <Picker
+          style={[styles.input, { height: 60 }]}
+          selectedValue={tipo}
+          onValueChange={setTipo}
+        >
+          <Picker.Item label="Armamento" value="Armamento" />
+
+          <Picker.Item label="Equipamento" value="Equipamento" />
+
+          <Picker.Item label="Consumível" value="Consumivel" />
+
+          <Picker.Item label="Item" value="Item" />
+        </Picker>
+
+        <TouchableOpacity style={styles.button} onPress={excluirItem}>
+          <Text style={styles.buttonText}>Excluir</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -92,6 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     fontSize: 18,
+    margin: 10,
   },
 
   button: {
