@@ -371,12 +371,12 @@ export async function adicionarItem(idFicha, dados) {
 
   // Busca todos os itens do inventário
   const todosItens = [
-  ...ficha.inventario.dinheiro,
-  ...ficha.inventario.armas,
-  ...ficha.inventario.equipamentos,
-  ...ficha.inventario.consumiveis,
-  ...ficha.inventario.itens,
-];
+    ...ficha.inventario.dinheiro,
+    ...ficha.inventario.armas,
+    ...ficha.inventario.equipamentos,
+    ...ficha.inventario.consumiveis,
+    ...ficha.inventario.itens,
+  ];
 
   // Gera o próximo ID disponível
   const novoId =
@@ -484,6 +484,66 @@ export async function removerItem(idFicha, tipo, idItem) {
     default:
       return false;
   }
+
+  ficha.updatedAt = new Date().toISOString();
+
+  await salvarBanco(banco);
+
+  return true;
+}
+
+/*===========================================================
+                  HABILIDADES
+=============================================================*/
+
+export async function adicionarHabilidade(idFicha, dados) {
+  const banco = await lerBanco();
+
+  const ficha = banco.fichas.find((ficha) => ficha.id == idFicha);
+
+  if (!ficha) {
+    return false;
+  }
+
+  const novoId = ficha.habilidades.length + 1;
+
+  const habilidade = {
+    id: novoId,
+
+    nome: dados.nome || "",
+
+    tipo: dados.tipo || "Ativa",
+
+    dano: dados.dano || "",
+
+    custo: dados.custo || "",
+
+    alcance: dados.alcance || "",
+
+    descricao: dados.descricao || "",
+  };
+
+  ficha.habilidades.push(habilidade);
+
+  ficha.updatedAt = new Date().toISOString();
+
+  await salvarBanco(banco);
+
+  return true;
+}
+
+export async function removerHabilidade(idFicha, idHabilidade) {
+  const banco = await lerBanco();
+
+  const ficha = banco.fichas.find((ficha) => ficha.id == idFicha);
+
+  if (!ficha) {
+    return false;
+  }
+
+  ficha.habilidades = ficha.habilidades.filter(
+    (habilidade) => habilidade.id != idHabilidade,
+  );
 
   ficha.updatedAt = new Date().toISOString();
 

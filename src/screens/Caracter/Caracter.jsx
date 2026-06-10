@@ -10,6 +10,7 @@ import Status from "./Abas/Status";
 import Atributos from "./Abas/Atributos";
 import Inventario from "./Abas/Inventario";
 import Habilidades from "./Abas/Habilidades";
+import Dados from "./Abas/Dados";
 
 import { styles } from "./style";
 import { g_styles } from "../../global_CSS";
@@ -57,6 +58,13 @@ export default function Caracter({ navigation, route }) {
         return (
           <View>
             <Habilidades ficha={ficha} navigation={navigation} />
+          </View>
+        );
+
+        case "Dados":
+        return (
+          <View>
+            <Dados ficha={ficha} navigation={navigation} />
           </View>
         );
 
@@ -131,28 +139,35 @@ export default function Caracter({ navigation, route }) {
           style={[styles.tab, abaAtiva === "status" && styles.tabAtiva]}
           onPress={() => setAbaAtiva("status")}
         >
-          <Text style={styles.tabTexto}>Status</Text>
+          <Text style={styles.tabTexto}>Stats.</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.tab, abaAtiva === "atributos" && styles.tabAtiva]}
           onPress={() => setAbaAtiva("atributos")}
         >
-          <Text style={styles.tabTexto}>Atrib.</Text>
+          <Text style={styles.tabTexto}>Atrb.</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.tab, abaAtiva === "inventario" && styles.tabAtiva]}
           onPress={() => setAbaAtiva("inventario")}
         >
-          <Text style={styles.tabTexto}>Invent.</Text>
+          <Text style={styles.tabTexto}>Inv.</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.tab, abaAtiva === "habilidades" && styles.tabAtiva]}
           onPress={() => setAbaAtiva("habilidades")}
         >
-          <Text style={styles.tabTexto}>Habil.</Text>
+          <Text style={styles.tabTexto}>Hab.</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.tab, abaAtiva === "Dados" && styles.tabAtiva]}
+          onPress={() => setAbaAtiva("Dados")}
+        >
+          <Text style={styles.tabTexto}>Roll</Text>
         </TouchableOpacity>
       </View>
 
