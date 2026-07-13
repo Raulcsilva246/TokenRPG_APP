@@ -13,7 +13,8 @@
     "origem": "",
     "nivel": 1,
     "descricaoFisica": "",
-    "background": ""
+    "background": "",
+    "observacao": ""
   },
 
   "status": {
@@ -45,7 +46,7 @@
 
     "presenca": 0
   },
-
+  "atrib": [],
   "pericias": [],
 
   "reacoes": {

@@ -1,12 +1,23 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { removerUltimaPericia, buscarFicha } from "../../../services/Banco";
+import { removerUltimaPericia, buscarFicha, removerUltimoAtrib } from "../../../services/Banco";
 
 export default function Atributos({ ficha, navigation, setFicha }) {
+ 
   console.log("PERICIAS DA TELA:", ficha.pericias);
+  console.log("atrib DA TELA:", ficha.atrib);
 
   const id = ficha.id;
-  async function remover() {
+  const atributosExtras = ficha?.atrib ?? [];
+  async function removerP() {
     await removerUltimaPericia(ficha.id);
+
+    const fichaAtualizada = await buscarFicha(ficha.id);
+
+    setFicha(fichaAtualizada);
+  }
+
+  async function removerA() {
+    await removerUltimoAtrib(ficha.id);
 
     const fichaAtualizada = await buscarFicha(ficha.id);
 
@@ -68,10 +79,10 @@ export default function Atributos({ ficha, navigation, setFicha }) {
       </View>
 
       <View style={styles.containerBasicInfo}>
-        <Text style={styles.title}>Perícias</Text>
+        <Text style={styles.title}>Atributos</Text>
 
         <View style={{ width: "100%" }}>
-          {ficha.pericias.length === 0 ? (
+          {atributosExtras.length === 0 ? (
             <Text
               style={{
                 color: "#888",
@@ -79,10 +90,10 @@ export default function Atributos({ ficha, navigation, setFicha }) {
                 marginTop: 10,
               }}
             >
-              Nenhuma perícia cadastrada
+              Nenhum atributo cadastrado
             </Text>
           ) : (
-            ficha.pericias.map((pericia, index) => (
+            atributosExtras.map((atrib, index) => (
               <View
                 key={index}
                 style={{
@@ -100,7 +111,7 @@ export default function Atributos({ ficha, navigation, setFicha }) {
                     fontSize: 18,
                   }}
                 >
-                  {pericia.nome}
+                  {atrib.nome}
                 </Text>
 
                 <Text
@@ -110,17 +121,87 @@ export default function Atributos({ ficha, navigation, setFicha }) {
                     fontWeight: "bold",
                   }}
                 >
-                  +{pericia.valor}
+                  +{atrib.valor}
                 </Text>
               </View>
             ))
           )}
-        </View>
-
         <View style={styles.containerInfo}>
-          <TouchableOpacity style={b_Add.box_buttom_Delete} onPress={remover}>
+          <TouchableOpacity style={b_Add.box_buttom_Delete} onPress={removerA}>
             <Text style={b_Add.text}>-</Text>
           </TouchableOpacity>
+
+          
+
+          <TouchableOpacity
+            style={b_Add.box_buttom_add}
+            onPress={() =>
+              navigation.navigate("CreatA", {
+                id: ficha.id,
+              })
+            }
+          >
+            <Text style={b_Add.text}>+</Text>
+          </TouchableOpacity>
+        </View>
+        </View>
+      </View>
+
+
+      <View style={styles.containerBasicInfo}>
+        <Text style={styles.title}>Pericias</Text>
+
+        <View style={{ width: "100%" }}>
+          { ficha.pericias.length === 0 ? (
+            <Text
+              style={{
+                color: "#888",
+                textAlign: "center",
+                marginTop: 10,
+              }}
+            >
+              Nenhuma Pericia cadastrada
+            </Text>
+          ) : (
+             ficha.pericias.map((pericias, index) => (
+              <View
+                key={index}
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  borderBottomWidth: 1,
+                  borderBottomColor: "#444",
+                  paddingVertical: 8,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#FFF",
+                    fontSize: 18,
+                  }}
+                >
+                  {pericias.nome}
+                </Text>
+
+                <Text
+                  style={{
+                    color: "#39FF14",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                >
+                  +{pericias.valor}
+                </Text>
+              </View>
+            ))
+          )}
+        <View style={styles.containerInfo}>
+          <TouchableOpacity style={b_Add.box_buttom_Delete} onPress={removerP}>
+            <Text style={b_Add.text}>-</Text>
+          </TouchableOpacity>
+
+          
 
           <TouchableOpacity
             style={b_Add.box_buttom_add}
@@ -133,8 +214,11 @@ export default function Atributos({ ficha, navigation, setFicha }) {
             <Text style={b_Add.text}>+</Text>
           </TouchableOpacity>
         </View>
+        </View>
       </View>
-    </View>
+
+      </View>
+
   );
 }
 

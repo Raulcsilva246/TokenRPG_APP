@@ -1,12 +1,50 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import { useState } from "react";
 
 export default function Inventario({ ficha, navigation }) {
-  console.log("INVENTARIO:", ficha.inventario);
+  const [pesquisa, setPesquisa] = useState("");
+
+  
+
+  const filtrar = (item) => {
+    const texto = pesquisa.toLowerCase();
+
+    return (
+      item.nome.toLowerCase().includes(texto) ||
+      (item.tipo || "").toLowerCase().includes(texto) ||
+      (item.descricao || "").toLowerCase().includes(texto)
+    );
+  };
+
+  
+
   return (
     <>
       <View style={styles.container}>
+        <TextInput
+          placeholder="Pesquisar item..."
+          placeholderTextColor="#777"
+          value={pesquisa}
+          onChangeText={setPesquisa}
+          style={{
+            width: 300,
+            height: 45,
+            backgroundColor: "#1a1f2e",
+            color: "#fff",
+            borderWidth: 1,
+            borderColor: "#39FF14",
+            paddingHorizontal: 10,
+            marginTop: 20,
+          }}
+        />
         {/*-------------Dinheiro----------------- */}
-        {ficha.inventario.dinheiro.map((dinheiro) => (
+        {ficha.inventario.dinheiro.filter(filtrar).map((dinheiro, index) => (
           <View
             key={dinheiro.id}
             style={[styles.box_select, { borderColor: "yellow" }]}
@@ -33,7 +71,7 @@ export default function Inventario({ ficha, navigation }) {
         ))}
 
         {/*-------------Armas----------------- */}
-        {ficha.inventario.armas.map((arma, index) => (
+        {ficha.inventario.armas.filter(filtrar).map((arma, index) => (
           <View key={index} style={[styles.box_select, { borderColor: "red" }]}>
             <View style={styles.header}>
               <Text style={[styles.textname, { color: "red" }]}>
@@ -61,35 +99,37 @@ export default function Inventario({ ficha, navigation }) {
           </View>
         ))}
         {/*-------------equipamentos----------------- */}
-        {ficha.inventario.equipamentos.map((equipamento, index) => (
-          <View
-            key={index}
-            style={[styles.box_select, { borderColor: "orange" }]}
-          >
-            <View style={styles.header}>
-              <Text style={[styles.textname, { color: "orange" }]}>
-                {equipamento.nome}
-              </Text>
-
-              <View style={[styles.box_lv, { borderColor: "orange" }]}>
-                <Text style={[styles.textLV, { color: "orange" }]}>
-                  ID: {equipamento.id}
+        {ficha.inventario.equipamentos
+          .filter(filtrar)
+          .map((equipamento, index) => (
+            <View
+              key={index}
+              style={[styles.box_select, { borderColor: "orange" }]}
+            >
+              <View style={styles.header}>
+                <Text style={[styles.textname, { color: "orange" }]}>
+                  {equipamento.nome}
                 </Text>
+
+                <View style={[styles.box_lv, { borderColor: "orange" }]}>
+                  <Text style={[styles.textLV, { color: "orange" }]}>
+                    ID: {equipamento.id}
+                  </Text>
+                </View>
+              </View>
+
+              <Text style={styles.text}>Tipo: Equipamento</Text>
+
+              <Text style={styles.textInput}>Descrição:</Text>
+
+              <View style={styles.containerDesc}>
+                <Text style={styles.text}>{equipamento.descricao}</Text>
               </View>
             </View>
-
-            <Text style={styles.text}>Tipo: Equipamento</Text>
-
-            <Text style={styles.textInput}>Descrição:</Text>
-
-            <View style={styles.containerDesc}>
-              <Text style={styles.text}>{equipamento.descricao}</Text>
-            </View>
-          </View>
-        ))}
+          ))}
 
         {/*-------------itens----------------- */}
-        {ficha.inventario.itens.map((item, index) => (
+        {ficha.inventario.itens.filter(filtrar).map((item, index) => (
           <View
             key={index}
             style={[styles.box_select, { borderColor: "lightblue" }]}
@@ -115,36 +155,35 @@ export default function Inventario({ ficha, navigation }) {
             </View>
           </View>
         ))}
-    <View style={b_Add.box}>
-        <TouchableOpacity
-          style={b_Add.box_buttom_add}
-          onPress={() =>
-            navigation.navigate("CreatT", {
-              id: ficha.id,
-            })
-          }
-        >
-          <Text style={b_Add.text}>+</Text>
-        </TouchableOpacity>
+        <View style={b_Add.box}>
+          <TouchableOpacity
+            style={b_Add.box_buttom_add}
+            onPress={() =>
+              navigation.navigate("CreatT", {
+                id: ficha.id,
+              })
+            }
+          >
+            <Text style={b_Add.text}>+</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[
-            b_Add.box_buttom_add,
-            {
-              backgroundColor: "red",
-              
-              shadowColor: "#ff4a4a",
+          <TouchableOpacity
+            style={[
+              b_Add.box_buttom_add,
+              {
+                backgroundColor: "red",
 
-            },
-          ]}
-          onPress={() =>
-            navigation.navigate("DeleteItem", {
-              idFicha: ficha.id,
-            })
-          }
-        >
-          <Text style={b_Add.text}>-</Text>
-        </TouchableOpacity>
+                shadowColor: "#ff4a4a",
+              },
+            ]}
+            onPress={() =>
+              navigation.navigate("DeleteItem", {
+                idFicha: ficha.id,
+              })
+            }
+          >
+            <Text style={b_Add.text}>-</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </>
@@ -214,8 +253,7 @@ const styles = StyleSheet.create({
 
 export const b_Add = StyleSheet.create({
   box_buttom_add: {
-   
-margin: 10,
+    margin: 10,
 
     width: 50,
     height: 50,
@@ -243,6 +281,6 @@ margin: 10,
     color: "black",
   },
   box: {
-        flexDirection: "row",
-  }
+    flexDirection: "row",
+  },
 });

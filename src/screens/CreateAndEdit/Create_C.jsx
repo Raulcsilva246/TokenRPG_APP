@@ -28,6 +28,7 @@ import { criarFicha,  } from '../../services/Banco';
 
   const [descricaoFisica, setDescricaoFisica] = useState('');
   const [background, setBackground] = useState('');
+  const [observacao, setObservacao] = useState('');
 
   const [vida, setVida] = useState('');
   const [energia, setEnergia] = useState('');
@@ -56,6 +57,7 @@ import { criarFicha,  } from '../../services/Banco';
 
     descricaoFisica,
     background,
+    observacao,
 
     vida,
     energia,
@@ -201,6 +203,20 @@ import { criarFicha,  } from '../../services/Banco';
             textAlignVertical="top"
             value={background}
             onChangeText={setBackground}
+          />
+
+          <Text style={input.textInput}>
+            Observações
+          </Text>
+
+          <TextInput
+            placeholder="Observações"
+            style={input.input}
+            multiline
+            numberOfLines={6}
+            textAlignVertical="top"
+            value={observacao}
+            onChangeText={setObservacao}
           />
 
         </View>

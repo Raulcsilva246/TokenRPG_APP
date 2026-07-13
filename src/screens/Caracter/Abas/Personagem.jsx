@@ -47,6 +47,11 @@ export default function Personagem({ ficha }) {
           <View style={styles.containerDesc}>
             <Text style={input.textInput}>{ficha.personagem.background}</Text>
           </View>
+
+          <Text style={input.textInput}>Observações:</Text>
+          <View style={styles.containerDesc}>
+            <Text style={input.textInput}>{ficha.personagem.observacao}</Text>
+          </View>
         </View>
       </View>
     </>

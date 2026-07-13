@@ -7,11 +7,38 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
+import { useState } from "react";
 
 export default function Habilidades({ ficha, navigation }) {
+  const [pesquisa, setPesquisa] = useState("");
+  const habilidadesFiltradas = ficha.habilidades.filter((habilidade) => {
+    const texto = pesquisa.toLowerCase();
+
+    return (
+      habilidade.nome.toLowerCase().includes(texto) ||
+      habilidade.tipo.toLowerCase().includes(texto) ||
+      habilidade.descricao.toLowerCase().includes(texto)
+    );
+  });
   return (
     <View style={styles.container}>
-      {ficha.habilidades.map((habilidade) => {
+      <TextInput
+        placeholder="Pesquisar habilidade..."
+        placeholderTextColor="#777"
+        value={pesquisa}
+        onChangeText={setPesquisa}
+        style={{
+          width: 300,
+          height: 45,
+          backgroundColor: "#1a1f2e",
+          color: "#fff",
+          borderWidth: 1,
+          borderColor: "#39FF14",
+          paddingHorizontal: 10,
+          marginTop: 20,
+        }}
+      />
+      {habilidadesFiltradas.map((habilidade) => {
         const cor = habilidade.tipo === "Ativa" ? "red" : "yellow";
 
         return (

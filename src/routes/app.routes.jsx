@@ -7,6 +7,7 @@ import Caracter from '../screens/Caracter/Caracter'
 import CreatH from '../screens/CreateAndEdit/CreateHability'
 import CreatT from '../screens/CreateAndEdit/CreateItem'
 import CreatP from '../screens/CreateAndEdit/CreatePericias.jsx'
+import CreatA from '../screens/CreateAndEdit/Create_atrib.jsx'
 import Delete from '../screens/CreateAndEdit/Delete'
 import DeleteItem from '../screens/CreateAndEdit/DeleteItem'
 import DeleteH from '../screens/CreateAndEdit/DeleteH.jsx'
@@ -70,6 +71,11 @@ export function AppRoutes(){
       <Stack.Screen
         name='CreatP'
         component={CreatP}
+      />
+
+      <Stack.Screen
+        name='CreatA'
+        component={CreatA}
       />
 
     </Stack.Navigator>
