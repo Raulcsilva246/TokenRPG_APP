@@ -26,6 +26,7 @@ export default function Home({ navigation }) {
     <View style={g_styles.container}>
       <ScrollView>
         <Text style={g_styles.title}>Tokens RPG</Text>
+        <Text style={caracter.text2}>Versão 3.0</Text>
 
         {fichas.map((ficha) => (
           <TouchableOpacity

@@ -46,6 +46,12 @@ export const caracter = StyleSheet.create({
 
     borderWidth: 1,
     borderColor: '#ffaa00',
+  },
+  text2: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#afafaf',
+    textAlign: 'center'
   }
 });
 
@@ -83,4 +89,5 @@ shadowOffset:{
     color: 'black'
 
   },
+  
 });
